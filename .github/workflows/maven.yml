@@ -48,7 +48,7 @@ jobs:
       if: failure()
       run: |
           set +e
-          grep -E "<testcase|<failed-test" junit/*.xml | grep -B 1 "<failed-test" > failed-test-report.xml
+          grep -E "<testcase|<failure" target/surefire-reports/*.xml | grep -B 1 "<failure" > failed-test-report.xml
     
     - name: Send failure message to Telegram
       if: failure()
