@@ -34,7 +34,7 @@ jobs:
       run: |
         echo "Test failures detected. Generating report..."
         mkdir -p test-reports
-        mv target/surefire-reports/*.xml test-reports/
+        cp target/surefire-reports/*.xml test-reports/
 
     - name: Send success message to Telegram
       if: success()
@@ -48,7 +48,7 @@ jobs:
       if: failure()
       run: |
           set +e
-          grep -E "<testcase|<failure" target/surefire-reports/*.xml | grep -B 1 "<failure" > failed-test-report.xml
+          grep -E "<testcase|<failure" test-reports/*.xml | grep -B 1 "<failure" > failed-test-report.xml
     
     - name: Send failure message to Telegram
       if: failure()
@@ -56,6 +56,5 @@ jobs:
       with:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
-        message: |
-          Тесты не пройдены. Непройденные тесты:
+        message: "Тесты не пройдены. Непройденные тесты:"
         document: failed-test-report.xml
