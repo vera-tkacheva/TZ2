@@ -47,7 +47,7 @@ private ArrayList<Integer> list;
             }
         }
 
-        assertEquals(99, max);
+        assertEquals(999, max);
     }
 
     @Test
