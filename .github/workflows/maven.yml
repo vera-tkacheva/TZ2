@@ -43,7 +43,13 @@ jobs:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: "Всё ок"
-
+        
+    - name: Make failed test report
+      if: failure()
+      run: |
+          set +e
+          grep -E "<testcase|<failed-test" junit/*.xml | grep -B 1 "<failed-test" > failed-test-report.xml
+    
     - name: Send failure message to Telegram
       if: failure()
       uses: appleboy/telegram-action@master
@@ -52,4 +58,4 @@ jobs:
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: |
           Тесты не пройдены. Непройденные тесты:
-          $(cat target/surefire-reports/*.txt | grep -E -o '<<< FAILURE! - in .*' | sed 's/<<< FAILURE! - in //g')
+        document: failed-test-report.xml
