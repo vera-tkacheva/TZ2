@@ -19,7 +19,7 @@ private ArrayList<Integer> list;
     NumericalFunctionsTest() throws IOException {
         list = new ArrayList<>();
 
-        BufferedReader reader = new BufferedReader(new FileReader("input100.txt"));
+        BufferedReader reader = new BufferedReader(new FileReader("input10.txt"));
         String[] numsArray = reader.readLine().split(" ");
         for (int i = 0; i < numsArray.length; i++) {
             list.add(Integer.parseInt(numsArray[i]));
@@ -35,7 +35,7 @@ private ArrayList<Integer> list;
             }
         }
 
-        assertEquals(8, min);
+        assertEquals(-2, min);
     }
 
     @Test
@@ -47,27 +47,27 @@ private ArrayList<Integer> list;
             }
         }
 
-        assertEquals(999, max);
+        assertEquals(10000, max);
     }
 
     @Test
     void sum() {
-        int sum = 0;
+        long sum = 0;
         for (int num : list) {
             sum += num;
         }
 
-        assertEquals(49533, sum);
+        assertEquals(10053, sum);
     }
 
     @Test
     void mult() {
-        int mult = 1;
+        long mult = 1;
         for (int num : list) {
             mult *= num;
         }
 
-        assertEquals(0, mult);
+        assertEquals(-5400000, mult);
     }
 
     @Test
@@ -78,7 +78,7 @@ private ArrayList<Integer> list;
         }
         float middleValue = (float) sum / list.size();
 
-        assertEquals(495.3299865722656, middleValue, 0.001);
+        assertEquals(1005.2999877929688, middleValue, 0.001);
     }
 
     @Test
@@ -102,7 +102,7 @@ private ArrayList<Integer> list;
     @Test
     void sumTime() {
         long t1 = System.nanoTime();
-        this.max();
+        this.sum();
         long t2 = System.nanoTime();
 
         System.out.println("Время работы sum: " + (t2 - t1));

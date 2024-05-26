@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class NumericalFunctions {
     public static void main(String[] args) throws FileNotFoundException {
-        File file = new File("input100.txt");
+        File file = new File("input10.txt");
         Scanner scanner = new Scanner(file);
         ArrayList<Integer> numsArray = new ArrayList<>();
         String[] stringNumsArray = scanner.nextLine().split(" ");
@@ -72,5 +72,3 @@ public class NumericalFunctions {
         return middleValue;
     }
 }
-//assert exception для деления на ноль
-//actions in github - workflow
