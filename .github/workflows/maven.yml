@@ -36,7 +36,7 @@ jobs:
         mkdir -p test-reports
         cp target/surefire-reports/*.xml test-reports/
 
-    - name: Send success message to Telegram
+    - name: Send Message about Success to Telegram
       if: success()
       uses: appleboy/telegram-action@master
       with:
@@ -44,13 +44,13 @@ jobs:
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: "Всё ок"
         
-    - name: Create test failure report
+    - name: Create Test Failure Report
       if: failure()
       run: |
           set +e
           grep -E "<testcase|<failure" test-reports/*.xml | grep -B 1 "<failure" > failed-test-report.xml
     
-    - name: Send failure message to Telegram
+    - name: Send Message about Failure to Telegram
       if: failure()
       uses: appleboy/telegram-action@master
       with:
