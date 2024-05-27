@@ -44,7 +44,7 @@ jobs:
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: "Всё ок"
         
-    - name: Make failed test report
+    - name: Create test failure report
       if: failure()
       run: |
           set +e
