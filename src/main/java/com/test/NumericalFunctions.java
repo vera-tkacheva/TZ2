@@ -17,13 +17,11 @@ public class NumericalFunctions {
         int max = max(numsArray);
         long sum = sum(numsArray);
         long mult = mult(numsArray);
-        float middle = middle(numsArray);
 
         System.out.println("Минимум: " + min);
         System.out.println("Максимум: " + max);
         System.out.println("Сумма: " + sum);
         System.out.println("Произведение: " + mult);
-        System.out.println("Среднее арифметическое: " + middle);
 
     }
 
@@ -61,14 +59,5 @@ public class NumericalFunctions {
             mult *= num;
         }
         return mult;
-    }
-
-    public static float middle(ArrayList<Integer> numsArray) {
-        long sum = 0;
-        for (int i = 0; i < numsArray.size(); i++) {
-            sum += numsArray.get(i);
-        }
-        float middleValue = (float) sum / numsArray.size();
-        return middleValue;
     }
 }
