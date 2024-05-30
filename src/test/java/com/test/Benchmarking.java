@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Benchmarking {
+
     private static ArrayList<Integer> numsArray;
 
     public static void main(String[] args) {
@@ -16,6 +17,7 @@ public class Benchmarking {
         String[] stringNumsArray = null;
         int len = 0;
 
+        // Запуск методов для каждого тестирующего файла
         for (int i = tests.length - 1; i >= 0; i--) {
             try (BufferedReader reader = new BufferedReader(new FileReader(tests[i]))) {
                 stringNumsArray = reader.readLine().split(" ");
@@ -27,12 +29,11 @@ public class Benchmarking {
                 System.out.println("Время работы sum: " + benchmarking.sumTime());
                 System.out.println("Время работы mult: " + benchmarking.multTime());
                 System.out.println();
-
             } catch (FileNotFoundException e) {
-                System.err.println("Файл не найден: " + tests[i]);
+                System.err.println("Файл не найден: " + tests[i]); // Если файл с таким названием не существует
                 e.printStackTrace();
             } catch (IOException e) {
-                System.err.println("Ошибка при чтении файла: " + tests[i]);
+                System.err.println("Ошибка при чтении файла: " + tests[i]); // Если файл пустой
                 e.printStackTrace();
             }
         }

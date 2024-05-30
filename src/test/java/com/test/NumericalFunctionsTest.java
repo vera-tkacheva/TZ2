@@ -14,62 +14,45 @@ import java.util.concurrent.TimeUnit;
 
 
 public class NumericalFunctionsTest {
-private ArrayList<Integer> list;
+private ArrayList<Integer> numsArray;
 
+    // Определение тестовых данных в конструкторе класса
     NumericalFunctionsTest() throws IOException {
-        list = new ArrayList<>();
+        numsArray = new ArrayList<>();
 
         BufferedReader reader = new BufferedReader(new FileReader("input10.txt"));
-        String[] numsArray = reader.readLine().split(" ");
-        for (int i = 0; i < numsArray.length; i++) {
-            list.add(Integer.parseInt(numsArray[i]));
+        String[] stringNumsArray = reader.readLine().split(" ");
+        for (String strNum : stringNumsArray) {
+            try {
+                numsArray.add(Integer.parseInt(strNum));
+            } catch (NumberFormatException e) {
+                System.err.println("Файл содержит символ, который нельзя преобразовать в целое число: " + strNum);
+                throw e;
+            }
         }
     }
 
     @Test
     void minTest() {
-        int min = Integer.MAX_VALUE;
-        for (int num : list) {
-            if (num < min) {
-                min = num;
-            }
-        }
-
-        assertEquals(-2, min);
+        assertEquals(-2, NumericalFunctions.min(numsArray));
     }
 
     @Test
     void maxTest() {
-        int max = Integer.MIN_VALUE;
-        for (int num : list) {
-            if (num > max) {
-                max = num;
-            }
-        }
-
-        assertEquals(10000, max);
+        assertEquals(10000, NumericalFunctions.max(numsArray));
     }
 
     @Test
     void sumTest() {
-        long sum = 0;
-        for (int num : list) {
-            sum += num;
-        }
-
-        assertEquals(10053, sum);
+        assertEquals(10053, NumericalFunctions.sum(numsArray));
     }
 
     @Test
     void multTest() {
-        long mult = 1;
-        for (int num : list) {
-            mult *= num;
-        }
-
-        assertEquals(-5400000, mult);
+        assertEquals(-5400000, NumericalFunctions.mult(numsArray));
     }
 
+// Падающий тест
 @Timeout(value = 200, unit = TimeUnit.MILLISECONDS)
     @Test
     @Disabled

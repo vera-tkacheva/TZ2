@@ -1,18 +1,22 @@
 package com.test;
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class NumericalFunctions {
-    public static void main(String[] args) throws FileNotFoundException {
-        File file = new File("input10.txt");
-        Scanner scanner = new Scanner(file);
+    public static void main(String[] args) throws IOException {
+
+        // Считывание чисел из файла
+        BufferedReader reader = new BufferedReader(new FileReader("input10.txt"));
         ArrayList<Integer> numsArray = new ArrayList<>();
-        String[] stringNumsArray = scanner.nextLine().split(" ");
+        String[] stringNumsArray = reader.readLine().split(" ");
+
+        // Обработка чисел из файла (перевод в числовое значение)
         for (int i = 0; i < stringNumsArray.length; i++) {
             numsArray.add(Integer.parseInt(stringNumsArray[i]));
         }
+
+        // Вызов функций
         int min = min(numsArray);
         int max = max(numsArray);
         long sum = sum(numsArray);
