@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Timeout;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -26,7 +27,7 @@ private ArrayList<Integer> numsArray;
             try {
                 numsArray.add(Integer.parseInt(strNum));
             } catch (NumberFormatException e) {
-                System.err.println("Файл содержит символ, который нельзя преобразовать в целое число: " + strNum);
+                System.err.println("Файл содержит символ, который нельзя преобразовать в целое число типа int: " + strNum);
                 throw e;
             }
         }
@@ -44,12 +45,29 @@ private ArrayList<Integer> numsArray;
 
     @Test
     void sumTest() {
-        assertEquals(10053, NumericalFunctions.sum(numsArray));
+        BigInteger result = BigInteger.valueOf(NumericalFunctions.sum(numsArray));
+        if (result.compareTo(BigInteger.valueOf(Long.MAX_VALUE)) > 0 ||
+                result.compareTo(BigInteger.valueOf(Long.MIN_VALUE)) < 0) {
+            assertThrows(ArithmeticException.class, () -> {
+                throw new ArithmeticException("Сумма не вмещается в тип long");
+            });
+        } else {
+            assertEquals(10053, NumericalFunctions.sum(numsArray));
+        }
+
     }
 
     @Test
     void multTest() {
-        assertEquals(-5400000, NumericalFunctions.mult(numsArray));
+        BigInteger result = BigInteger.valueOf(NumericalFunctions.mult(numsArray));
+        if (result.compareTo(BigInteger.valueOf(Long.MAX_VALUE)) > 0 ||
+                result.compareTo(BigInteger.valueOf(Long.MIN_VALUE)) < 0) {
+            assertThrows(ArithmeticException.class, () -> {
+                throw new ArithmeticException("Произведение не вмещается в тип long");
+            });
+        } else {
+            assertEquals(-5400000, NumericalFunctions.mult(numsArray));
+        }
     }
 
 // Падающий тест
