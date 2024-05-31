@@ -1,4 +1,8 @@
+
+/target
 # Explicitly allow target directory for GitHub Actions
 !target/
+
+/.idea
 
 **/.DS_Store
