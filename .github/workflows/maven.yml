@@ -1,10 +1,13 @@
+# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
+
+
 name: Java CI with Maven
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "main3" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "main3" ]
 
 jobs:
   build:
@@ -13,14 +16,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-
     - name: Set up JDK 17
       uses: actions/setup-java@v3
       with:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 
@@ -28,31 +29,33 @@ jobs:
       run: mvn test --file pom.xml
       continue-on-error: true
 
-    - name: Success message
+    - name: Generate Test Report
+      if: failure()
+      run: |
+        echo "Test failures detected. Generating report..."
+        mkdir -p test-reports
+        cp target/surefire-reports/*.xml test-reports/
+
+    - name: Make failed test report
+      if: failure()
+      run: |
+        set +e
+        grep -E "<testcase|<failure" test-reports/*.xml | grep -B 1 "<failure" > test-reports/failed-test-report.xml
+
+    - name: Send success message to Telegram
       if: success()
       uses: appleboy/telegram-action@master
       with:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
-        message: "Все окей"
-        
-    - name: Test Report
-      if: failure()
-      run: |
-        mkdir -p test-reports
-        cp target/surefire-reports/*.xml test-reports/
-        set +e
-        grep -E "<testcase|<failure" test-reports/*.xml | grep -B 1 "<failure" > report.xml
-    
-    
+        message: "Всё ок"
+
     - name: Send failure message to Telegram
       if: failure()
       uses: appleboy/telegram-action@master
       with:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
-        message: "Тесты не пройдены. Непройденные тесты:"
-        document: report.xml
+        message: "Некоторые тесты не пройдены:"
+        document: test-reports/failed-test-report.xml
 
-
-        
