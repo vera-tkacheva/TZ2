@@ -53,3 +53,6 @@ jobs:
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: "Тесты не пройдены. Непройденные тесты:"
         document: report.xml
+
+
+        
