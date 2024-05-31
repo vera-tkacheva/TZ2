@@ -49,7 +49,11 @@ jobs:
       run: |
           set +e
           grep -E "<testcase|<failure" test-reports/*.xml | grep -B 1 "<failure" > failed-test-report.xml
-    
+
+    - name: Debug - List test-reports directory
+      if: failure()
+      run: ls -l test-reports
+      
     - name: Send failure message to Telegram
       if: failure()
       uses: appleboy/telegram-action@master
