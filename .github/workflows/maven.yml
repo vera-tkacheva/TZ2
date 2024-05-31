@@ -36,6 +36,12 @@ jobs:
         mkdir -p test-reports
         cp target/surefire-reports/*.xml test-reports/
 
+    - name: Make failed test report
+      if: failure()
+      run: |
+        set +e
+        grep -E "<testcase|<failure" test-reports/*.xml | grep -B 1 "<failure" > test-reports/failed-test-report.xml
+
     - name: Send success message to Telegram
       if: success()
       uses: appleboy/telegram-action@master
@@ -43,13 +49,7 @@ jobs:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: "Всё ок"
-        
-    - name: Make failed test report
-      if: failure()
-      run: |
-          set +e
-          grep -E "<testcase|<failure" test-reports/*.xml | grep -B 1 "<failure" > failed-test-report.xml
-    
+
     - name: Send failure message to Telegram
       if: failure()
       uses: appleboy/telegram-action@master
@@ -57,4 +57,4 @@ jobs:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: "Некоторые тесты не пройдены:"
-        document: failed-test-report.xml
+        document: test-reports/failed-test-report.xml
