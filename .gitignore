@@ -1,3 +1,4 @@
-
+# Explicitly allow target directory for GitHub Actions
+!target/
 
 **/.DS_Store
