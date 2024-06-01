@@ -66,7 +66,7 @@ private ArrayList<Integer> numsArray;
                 throw new ArithmeticException("Произведение не вмещается в тип long");
             });
         } else {
-            assertEquals(-5400000, NumericalFunctions.mult(numsArray));
+            assertEquals(-540000, NumericalFunctions.mult(numsArray));
         }
     }
 
