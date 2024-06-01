@@ -35,7 +35,9 @@ jobs:
         echo "Test failures detected. Generating report..."
         mkdir -p test-reports
         cp target/surefire-reports/*.xml test-reports/
-        cat test-reports/*.xml
+        ls test-reports
+        ls target
+        ls target-surefire-reports
 
     - name: Send success message to Telegram
       if: success()
