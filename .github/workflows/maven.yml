@@ -52,6 +52,7 @@ jobs:
       if: failure()
       run: |
           set +e
+          cat test-reports/*xml
           grep -E "<testcase|<failure" test-reports/*.xml | grep -B 1 "<failure" > failed-test-report.xml || true
     
     - name: Send failure message to Telegram
