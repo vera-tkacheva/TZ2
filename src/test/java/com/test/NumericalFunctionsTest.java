@@ -73,7 +73,7 @@ private ArrayList<Integer> numsArray;
 // Падающий тест
 @Timeout(value = 200, unit = TimeUnit.MILLISECONDS)
     @Test
-    //@Disabled
+    @Disabled
     void timeCheck() throws InterruptedException {
         Thread.sleep(200);
     }
