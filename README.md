@@ -64,7 +64,7 @@ __Текущий статус прохождения тестов__:
 
 ### График
 
-![график](graphic.png)
+<img width="993" alt="graphic" src="https://github.com/vera-tkacheva/TZ2/assets/167525612/741834e5-8d78-4542-8c5c-3aa789550494">
 
 На графике видна линейная зависимость (с погрешностью). Ассимптотика функции `max()` = *O(n)*, где n - количество чисел в файле. 
 
@@ -82,9 +82,11 @@ mvn test
 С помощью действия `appleboy/telegram-action@master` отправляются уведомления в Telegram.
 
 - При успешном прохождении тестов бот присылает сообщение `Всё ок`.
-![ok](ok.png)
+<img width="593" alt="graphic" src="https://github.com/vera-tkacheva/TZ2/assets/167525612/05cef2df-9140-404e-bcb8-4cc774927551">
+
 - При неуспешном прохождении тестов:
   - Создается отчет о не пройденных тестах в формате XML `failed-test-report.xml`.
   - Бот присылает сообщение `Некоторые тесты не пройдены:` и отчет.
-![failed](failed.png)
+<img width="593" alt="graphic" src="https://github.com/vera-tkacheva/TZ2/assets/167525612/4440f8ee-6ca7-49ab-acfe-4d7d60eeffa2">
+
 -----
