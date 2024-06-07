@@ -1,5 +1,6 @@
 package com.test;
 import java.io.*;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -8,17 +9,17 @@ public class NumericalFunctions {
 
         // Считывание чисел из файла
         BufferedReader reader = new BufferedReader(new FileReader("input10.txt"));
-        ArrayList<Integer> numsArray = new ArrayList<>();
+        ArrayList<Long> numsArray = new ArrayList<>();
         String[] stringNumsArray = reader.readLine().split(" ");
 
         // Обработка чисел из файла (перевод в числовое значение)
         for (int i = 0; i < stringNumsArray.length; i++) {
-            numsArray.add(Integer.parseInt(stringNumsArray[i]));
+            numsArray.add(Long.parseLong(stringNumsArray[i]));
         }
 
         // Вызов функций
-        int min = min(numsArray);
-        int max = max(numsArray);
+        long min = min(numsArray);
+        long max = max(numsArray);
         long sum = sum(numsArray);
         long mult = mult(numsArray);
 
@@ -29,9 +30,9 @@ public class NumericalFunctions {
 
     }
 
-    public static int min(ArrayList<Integer> numsArray) {
-        int min = Integer.MAX_VALUE;
-        for (int num : numsArray) {
+    public static long min(ArrayList<Long> numsArray) {
+        long min = Long.MAX_VALUE;
+        for (long num : numsArray) {
             if (num < min) {
                 min = num;
             }
@@ -39,9 +40,9 @@ public class NumericalFunctions {
         return min;
     }
 
-    public static int max(ArrayList<Integer> numsArray) {
-        int max = Integer.MIN_VALUE;
-        for (int num : numsArray) {
+    public static long max(ArrayList<Long> numsArray) {
+        long max = Integer.MIN_VALUE;
+        for (long num : numsArray) {
             if (num > max) {
                 max = num;
             }
@@ -49,28 +50,31 @@ public class NumericalFunctions {
         return max;
     }
 
-    public static long sum(ArrayList<Integer> numsArray) {
-        long sum = 0;
-        for (int num : numsArray) {
+    public static long sum(ArrayList<Long> numsArray) {
+        BigInteger sum = BigInteger.ZERO;
+        for (long num : numsArray) {
+            BigInteger numBigInt = BigInteger.valueOf(num);
+            sum = sum.add(numBigInt);
+
             // Проверка на переполнение
-            if (sum > Integer.MAX_VALUE - num) {
+            if (sum.compareTo(BigInteger.valueOf(Long.MAX_VALUE)) > 0 || sum.compareTo(BigInteger.valueOf(Long.MIN_VALUE)) < 0) {
                 throw new ArithmeticException("Переполнение типа long");
             }
-            sum += num;
         }
-        return sum;
+        return sum.longValue();
     }
 
-    public static long mult(ArrayList<Integer> numsArray) {
-        long result = 1;
-        for (int num : numsArray) {
+    public static long mult(ArrayList<Long> numsArray) {
+        BigInteger result = BigInteger.ONE;
+        for (long num : numsArray) {
+            BigInteger numBigInt = BigInteger.valueOf(num);
+            result = result.multiply(numBigInt);
+
             // Проверка на переполнение
-            if (num != 0 && result > Integer.MAX_VALUE / num) {
+            if (result.compareTo(BigInteger.valueOf(Long.MAX_VALUE)) > 0 || result.compareTo(BigInteger.valueOf(Long.MIN_VALUE)) < 0) {
                 throw new ArithmeticException("Переполнение типа long");
             }
-            result *= num;
         }
-        return result;
+        return result.longValue();
     }
-
 }

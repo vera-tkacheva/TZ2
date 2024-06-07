@@ -3,31 +3,29 @@ package com.test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.function.Executable;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 
 @Nested
 class NumericalFunctionsTest {
-private ArrayList<Integer> numsArray;
+private ArrayList<Long> numsArray;
 
     // Определение тестовых данных в конструкторе класса
     NumericalFunctionsTest() throws IOException {
         numsArray = new ArrayList<>();
 
-        BufferedReader reader = new BufferedReader(new FileReader("input10.txt"));
+        BufferedReader reader = new BufferedReader(new FileReader("input2.txt"));
         String[] stringNumsArray = reader.readLine().split(" ");
         for (String strNum : stringNumsArray) {
             try {
-                numsArray.add(Integer.parseInt(strNum));
+                numsArray.add(Long.parseLong(strNum));
             } catch (NumberFormatException e) {
-                System.err.println("Файл содержит символ, который нельзя преобразовать в целое число типа int: " + strNum);
+                System.err.println("Файл содержит символ, который нельзя преобразовать в целое число типа long: " + strNum);
                 throw e;
             }
         }
@@ -35,19 +33,19 @@ private ArrayList<Integer> numsArray;
 
     @Test
     void minTest() {
-        assertEquals(-2, NumericalFunctions.min(numsArray));
+        assertEquals(999999999, NumericalFunctions.min(numsArray));
     }
 
     @Test
     void maxTest() {
-        assertEquals(10000, NumericalFunctions.max(numsArray));
+        assertEquals(999999999, NumericalFunctions.max(numsArray));
     }
 
     @Test
     void sumTest() {
         assertAll("Проверка суммы",
                 () -> assertThrows(ArithmeticException.class,
-                        () -> NumericalFunctions.sum(numsArray)),
+                        () -> NumericalFunctions.mult(numsArray)),
                 () -> assertEquals(10053, NumericalFunctions.sum(numsArray))
         );
     }

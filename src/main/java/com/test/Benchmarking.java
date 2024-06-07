@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Benchmarking {
 
-    private static ArrayList<Integer> numsArray;
+    private static ArrayList<Long> numsArray;
 
     public static void main(String[] args) {
 
@@ -40,7 +40,7 @@ public class Benchmarking {
 
         numsArray = new ArrayList<>(len);
         for (int i = 0; i < len; i++) {
-            numsArray.add(Integer.parseInt(stringNumsArray[i]));
+            numsArray.add(Long.parseLong(stringNumsArray[i]));
         }
     }
 
