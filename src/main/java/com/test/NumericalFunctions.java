@@ -50,18 +50,27 @@ public class NumericalFunctions {
     }
 
     public static long sum(ArrayList<Integer> numsArray) {
-        int sum = 0;
+        long sum = 0;
         for (int num : numsArray) {
+            // Проверка на переполнение
+            if (sum > Integer.MAX_VALUE - num) {
+                throw new ArithmeticException("Переполнение типа long");
+            }
             sum += num;
         }
         return sum;
     }
 
     public static long mult(ArrayList<Integer> numsArray) {
-        int mult = 1;
+        long result = 1;
         for (int num : numsArray) {
-            mult *= num;
+            // Проверка на переполнение
+            if (num != 0 && result > Integer.MAX_VALUE / num) {
+                throw new ArithmeticException("Переполнение типа long");
+            }
+            result *= num;
         }
-        return mult;
+        return result;
     }
+
 }

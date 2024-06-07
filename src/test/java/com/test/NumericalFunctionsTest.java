@@ -2,18 +2,19 @@ package com.test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Timeout;
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.function.Executable;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 
-public class NumericalFunctionsTest {
+@Nested
+class NumericalFunctionsTest {
 private ArrayList<Integer> numsArray;
 
     // Определение тестовых данных в конструкторе класса
@@ -44,19 +45,19 @@ private ArrayList<Integer> numsArray;
 
     @Test
     void sumTest() {
-        assertAll("Sum function tests",
-                () -> assertEquals(10053, NumericalFunctions.sum(numsArray)),
+        assertAll("Проверка суммы",
                 () -> assertThrows(ArithmeticException.class,
-                        () -> NumericalFunctions.sum(numsArray))
+                        () -> NumericalFunctions.sum(numsArray)),
+                () -> assertEquals(10053, NumericalFunctions.sum(numsArray))
         );
     }
 
     @Test
     void multTest() {
-        assertAll("Mult function tests",
-                () -> assertEquals(-5400000, NumericalFunctions.mult(numsArray)),
+        assertAll("Проверка произведения",
                 () -> assertThrows(ArithmeticException.class,
-                        () -> NumericalFunctions.mult(numsArray))
+                        () -> NumericalFunctions.mult(numsArray)),
+                () -> assertEquals(-5400000, NumericalFunctions.mult(numsArray))
         );
     }
 
