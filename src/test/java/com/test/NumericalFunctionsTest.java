@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Timeout;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -45,34 +44,25 @@ private ArrayList<Integer> numsArray;
 
     @Test
     void sumTest() {
-        BigInteger result = BigInteger.valueOf(NumericalFunctions.sum(numsArray));
-        if (result.compareTo(BigInteger.valueOf(Long.MAX_VALUE)) > 0 ||
-                result.compareTo(BigInteger.valueOf(Long.MIN_VALUE)) < 0) {
-            assertThrows(ArithmeticException.class, () -> {
-                throw new ArithmeticException("Сумма не вмещается в тип long");
-            });
-        } else {
-            assertEquals(10053, NumericalFunctions.sum(numsArray));
-        }
-
+        assertAll("Sum function tests",
+                () -> assertEquals(10053, NumericalFunctions.sum(numsArray)),
+                () -> assertThrows(ArithmeticException.class,
+                        () -> NumericalFunctions.sum(numsArray))
+        );
     }
 
     @Test
     void multTest() {
-        BigInteger result = BigInteger.valueOf(NumericalFunctions.mult(numsArray));
-        if (result.compareTo(BigInteger.valueOf(Long.MAX_VALUE)) > 0 ||
-                result.compareTo(BigInteger.valueOf(Long.MIN_VALUE)) < 0) {
-            assertThrows(ArithmeticException.class, () -> {
-                throw new ArithmeticException("Произведение не вмещается в тип long");
-            });
-        } else {
-            assertEquals(-5400000, NumericalFunctions.mult(numsArray));
-        }
+        assertAll("Mult function tests",
+                () -> assertEquals(-5400000, NumericalFunctions.mult(numsArray)),
+                () -> assertThrows(ArithmeticException.class,
+                        () -> NumericalFunctions.mult(numsArray))
+        );
     }
 
-// Падающий тест
-@Timeout(value = 200, unit = TimeUnit.MILLISECONDS)
+    // Падающий тест
     @Test
+    @Timeout(value = 200, unit = TimeUnit.MILLISECONDS)
     @Disabled
     void timeCheck() throws InterruptedException {
         Thread.sleep(200);
